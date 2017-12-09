@@ -8,18 +8,15 @@ from fastai.model import *
 from fastai.dataset import *
 from fastai.sgdr import *
 from fastai.plots import *
+import glob
 
-UPLOAD_FOLDER = '/home/ubuntu/dl_hackathon/tmp'
+UPLOAD_FOLDER = '/home/ubuntu/dl_hackathon/data/food-101/test/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 # Model stuff
 PATH = "/home/ubuntu/dl_hackathon/data/food-101/"
 sz=224
 arch=resnext101
-data = ImageClassifierData.from_paths(PATH, tfms=tfms_from_model(arch, sz))
-learn = ConvLearner.pretrained(arch, data, precompute=True, xtra_fc=[512, 512], ps=0.5)
-learn.load('better_model')
-learn.precompute=False # We'll pass in a raw image, not activations
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -43,15 +40,22 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
+            # cleaning test dir
+            files = glob.glob(UPLOAD_FOLDER+'*')
+            for f in files:
+                os.remove(f)
+            
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
             
-            trn_tfms, val_tfms = tfms_from_model(arch,sz) # get transformations
-            im = val_tfms(open_image(filepath))
-            preds = learn.predict_array(im[None])
+            
+            data = ImageClassifierData.from_paths(PATH, tfms=tfms_from_model(arch, sz), test_name='test')
+            learn = ConvLearner.pretrained(arch, data, precompute=True, xtra_fc=[512, 512], ps=0.5)
+            learn.load('better_model')
+            learn.precompute=False # We'll pass in a raw image, not activations
+            preds = learn.predict(is_test=True)
             top_preds = preds[0].argsort()[-5:][::-1] # get top 5 predictions
-            print(len(top_preds))
             top_pred_names = [data.classes[i] for i in top_preds]
             
             return jsonify(predictions=top_pred_names)
