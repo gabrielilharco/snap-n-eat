@@ -6,13 +6,13 @@ function barPlot(data) {
 
             var table = new google.visualization.DataTable();
             table.addColumn('string', 'Property');
-            table.addColumn('number', 'UL Peak');
-            table.addColumn('number', 'UL Off-peak');
+            table.addColumn('number', 'Consumed');
+            table.addColumn('number', 'Left');
 
-            table.addRow(['Carboidrato', 100 * data["carbohydrates"] / 300, 100*(1 - data["carbohydrates"] / 300)]);
-            table.addRow(['Gordura', 100 * data["fat"] / 65, 100*(1 - data["fat"] / 65)]);
-            table.addRow(['Proteína', 100 * data["proteins"] / 50, 100*(1 - data["proteins"] / 50)]);
-            table.addRow(['Colesterol', 100 * data["cholesterol"] / 0.003, 100*(1 - data["cholesterol"] / 0.003)]);
+            table.addRow(['Carbohydrates', Math.min(1, data["carbohydrates"] / 300), Math.max(0,(1 - data["carbohydrates"] / 300))]);
+            table.addRow(['Fat', Math.min(1, data["fat"] / 65), Math.max(0,(1 - data["fat"] / 65))]);
+            table.addRow(['Proteins', Math.min(1,data["proteins"] / 50), Math.max(0,(1 - data["proteins"] / 50))]);
+            table.addRow(['Cholesterol', Math.min(1, data["cholesterol"] / 0.003), Math.max(0, (1 - data["cholesterol"] / 0.003))]);
             var chart = new google.charts.Bar(this);
             var options = google.charts.Bar.convertOptions({
                 series: {
@@ -20,14 +20,18 @@ function barPlot(data) {
                     3: { color: '#C5EFEE', targetAxisIndex: 1 }
                 },
                 vAxis: {
+                    viewWindowMode: 'pretty',
                     viewWindow: {
-                        max: 100,
+                        max: 1,
                     },
                     title: '',
+                    format: 'percent',
                 },
                 legend: { position: 'none' },
                 hAxis: {
+                    viewWindowMode: 'pretty',
                     title: '',
+                    format: 'percent',
                 },
                 bar: {groupWidth: "60%"},
                 title: '',
@@ -37,3 +41,36 @@ function barPlot(data) {
         });
     });
 }
+
+function donutPlot(calories) {
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        consumed = Math.min(100, 100 * calories/2000);
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Left',     100 - consumed],
+            ['Consumed',     consumed]
+        ]);
+
+        var options = {
+          pieHole: 0.7,
+          legend: 'none',
+          colors: ['#FFD0E0', '#EE407B'],
+          pieSliceText: 'none',
+          title: 'Calories consumption',
+          titleTextStyle: {
+              color: '#666666',
+              fontName: "'Roboto'",
+              fontSize: 16,
+              bold: false,
+              italic: false,
+          },
+        };
+
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+    }
+}
+      

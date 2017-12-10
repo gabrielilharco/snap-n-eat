@@ -58,7 +58,8 @@
     }
     </style>
     
-      <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>    
+      <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/1.5.1/fingerprint2.min.js"></script>
       <script>
           // Initialize Firebase
           var config = {
@@ -74,28 +75,32 @@
     <script src="public/js/ejs.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['A',     0.20],
-          ['B',     0.80],
-        ]);
+    <script type="text/javascript" src="/public/js/update.js"></script>
+    <script>
+        var deviceId;
+        new Fingerprint2().get(function(result, components){
+            console.log(result); //a hash, representing your device fingerprint
+            deviceId = result; //DEMO
+            
+            var database = firebase.database();
+            
+            database.ref().once('value', function(snapshot) {
+                if (!snapshot.hasChild('/user' + deviceId)) {
+                    console.log("Im here");
 
-        var options = {
-          pieHole: 0.7,
-          legend: 'none',
-          colors: ['#FFD0E0', '#EE407B'],
-          pieSliceText: 'none',
-        };
+                    database.ref().child('/user' + deviceId).set({"calories": 0.0,
+                                                                  "carbohydrates": 0.0,
+                                                                  "proteins": 0.0,
+                                                                  "fat": 0.0,
+                                                                  "fiber": 0.0,
+                                                                  "cholesterol": 0.0})
 
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-      }
+                }
+            });
+        });
+        
+        
     </script>
-      
 
   </head>
   <body>
@@ -184,20 +189,121 @@
           <button id="t_button" type="submit" class="mdl-button mdl-js-buttons mdl-button--fab mdl-button--colored mdl-js-ripple-effect">
               <i class="material-icons" style="z-index: 1;">add</i>
           </button>
+          
          <div style="opacity: 0; filter:alpha(opacity=0);" class="mdl-button mdl-js-buttons mdl-button--fab mdl-button--colored mdl-js-ripple-effect">
             <form style="opacity: 0; filter:alpha(opacity=0);" id="submit-form" enctype="multipart/form-data" action="http://ec2-54-196-151-65.compute-1.amazonaws.com:5000" method="post">
-               <input style="height: 50px; opacity: 0; filter:alpha(opacity=0);" form="t_button" type="file" name="file" accept="image/*" id="file">
+               <input onchange="readURL(this);" style="height: 50px; opacity: 0; filter:alpha(opacity=0);" type="file" name="file" accept="image/*" id="file" size='1000'>
             </form>
           </div>
-     <script>
-      fileInput = document.getElementById('file');
+          
+          
+          <dialog class="mdl-dialog">
+            <h4 class="mdl-dialog__title">Select the best fit!</h4>
+            
+            <div class="mdl-dialog__content">
+              <img id="submitted_img" width="100%" src="http://images.all-free-download.com/images/graphiclarge/fries_and_steak_on_plate_193268.jpg">
+            </div>
 
-      fileInput.addEventListener('change', function(e) {
-        form = document.getElementById('submit-form');
-        console.log(form);
-        form.submit();
-      });
-    </script>
+            <div class="mdl-dialog__actions">              
+                <div> 
+                  <tr>
+                    <td> 
+                      <label class = "mdl-radio mdl-js-radio" for = "option1">                    
+                        <span id= "label_top1" class = "mdl-radio__label">Top1</span>
+                        <input type = "radio" id = "option1" name = "gender" class = "mdl-radio__button" checked>
+                      </label>
+                    </td>
+
+                    <td>
+                      <label class = "mdl-radio mdl-js-radio mdl-js-ripple-effect" for = "option2">                      
+                        <span id= "label_top2" class = "mdl-radio__label">Top2</span>
+                        <input type = "radio" id = "option2" name = "gender" class = "mdl-radio__button" >
+                      </label>
+                    </td>
+
+                    <td>                  
+                      <label class = "mdl-radio mdl-js-radio mdl-js-ripple-effect" for = "option3">                      
+                        <span id= "label_top3" class = "mdl-radio__label">Top3</span>
+                        <input type = "radio" id = "option3" name = "gender" class = "mdl-radio__button" >
+                      </label>      
+                    </td>
+                  </tr>
+                </div>
+
+                <div style="margin-top: 30px">
+                  <tr>
+                    <button type="button" class="mdl-button submit">Submit</button>
+                    <button type="button" class="mdl-button close">Cancel</button>
+                  </tr> 
+                </div>            
+            </div>
+          </dialog>
+          
+         <script>
+          function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#submitted_img').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+          }
+             
+          var dialog = document.querySelector('dialog');
+             
+          dialog.querySelector('.submit').addEventListener('click', function() {
+             if($('#option1').is(':checked')) { product_name = $('#label_top1').text(); }
+             if($('#option2').is(':checked')) { product_name = $('#label_top2').text(); }
+             if($('#option3').is(':checked')) { product_name = $('#label_top3').text(); }
+             console.log(product_name);
+             updateNutritionalValues(product_name);
+             dialog.close();
+          });
+             
+          dialog.querySelector('.close').addEventListener('click', function() {
+            dialog.close();
+          });
+             
+          fileInput = document.getElementById('file');
+
+          fileInput.addEventListener('change', function(e) {
+            form = document.getElementById('submit-form');
+            var url = "http://ec2-54-196-151-65.compute-1.amazonaws.com:8080/submit-image"
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: new FormData($('#submit-form')[0]), // serializes the form's elements.
+                processData: false,
+                contentType: false,
+                success: function(data)
+                {
+                    data = JSON.parse(data)
+                    console.log(data['predictions']); // show response from the php script.
+                    $('#label_top1').text(data['predictions'][0]);
+                    $('#label_top2').text(data['predictions'][1]);
+                    $('#label_top3').text(data['predictions'][2]);      
+                    
+                    var preview = document.querySelector('#submitted_img');
+                    var file    = document.querySelector('input[type=file]').files[0];
+                    var reader  = new FileReader();
+
+                    reader.onloadend = function (e) {
+                      preview.src = reader.result;
+                    }
+                    dialog.showModal();
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                    alert(request.responseText);
+                }
+            });
+          });
+          
+        </script>
         </div>
       </main>      
     </div>

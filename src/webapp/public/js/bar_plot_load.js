@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var database = firebase.database();
-    database.ref('/user/').on('value', function(childSnapshot, prevChildName) {
+    database.ref('/user' + deviceId + '/').on('value', function(childSnapshot, prevChildName) {
         calories = parseFloat(childSnapshot.child('calories').val());
         carbohydrates = parseFloat(childSnapshot.child('carbohydrates').val());
         proteins = parseFloat(childSnapshot.child('proteins').val());
@@ -14,5 +14,6 @@ $(document).ready(function() {
                 "cholesterol": cholesterol};
         
         barPlot(data);
+        donutPlot(calories);
     });
 });

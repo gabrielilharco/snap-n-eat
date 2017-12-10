@@ -1,6 +1,8 @@
 var express = require('express');
+var fs = require("fs");
 var request = require("request")
-
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
 var app = express();
 
 // set the view engine to ejs
@@ -17,6 +19,36 @@ app.get('/', function(req, res) {
 
 app.get('/sample', function (req, res) {
     res.json({"mil": "teste"});
+});
+
+app.post('/submit-image', upload.single('file'), function (req, res, next) {
+    console.log(req.file);
+    
+    var suggestions_url = "http://127.0.0.1:5000/path";
+    request.post({
+        url:     suggestions_url,
+        body:    "filepath=" + __dirname + "/" + req.file.path
+    }, function(error, response, body){
+        res.json(body);
+    });
+});
+
+app.get('/description', function (req, res) {
+    var description_url = "http://127.0.0.1:5001";
+    
+    product_name = req.query.product_name;
+    // console.log("I am here", product_name);
+    
+ request({
+        method: 'POST',
+        url: description_url,
+        json: true,
+        form: {"product_name": product_name}
+    }, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.json(body);
+        }
+    });
 });
 
 app.get('/suggestions', function (req, res) {

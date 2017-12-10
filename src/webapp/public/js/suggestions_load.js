@@ -16,7 +16,7 @@ function getSuggestions() {
     var database = firebase.database();
 
     // Read from firebase
-    database.ref('/user/').on('value', function(childSnapshot, prevChildName) {
+    database.ref('/user' + deviceId + '/').on('value', function(childSnapshot, prevChildName) {
         calories = parseFloat(childSnapshot.child('calories').val());
         carbohydrates = parseFloat(childSnapshot.child('carbohydrates').val());
         proteins = parseFloat(childSnapshot.child('proteins').val());
@@ -33,7 +33,7 @@ function getSuggestions() {
                                 cholesterol: cholesterol};
         
         $.get('/suggestions', propertiesObject, function (data) {
-            console.log(data);
+            $('#suggestions-list').empty()
             var html = templates.suggestionsList({'suggestionsList': data["recommended"]});
             $('#suggestions-list').append(html);
         });

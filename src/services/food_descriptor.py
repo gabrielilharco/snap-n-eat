@@ -9,9 +9,10 @@ products = df['product_name'].unique()
 
 app = Flask(__name__)
 
-@app.route("/", methods=['GET'])
+@app.route("/", methods=['POST'])
 def describe():
-    product_name = request.args.get('product_name')
+    product_name = request.values["product_name"].replace("_", " ")
+
     if product_name not in products:
         return nice_json({})
     dic = df.loc[df['product_name'] == product_name].to_dict()
