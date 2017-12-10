@@ -14,6 +14,15 @@ app.get('/', function(req, res) {
     res.render('pages/index');
 });
 
+
+app.get('/sample', function (req, res) {
+    res.json({"mil": "teste"});
+});
+
+app.get('/suggestions', function (req, res) {
+    res.json({"suggestions": ["comida 1", "comida 2", "comida 3"]});
+});
+             
 // about page 
 // app.get('/about', function(req, res) {
 //     res.render('pages/about');
