@@ -1,6 +1,6 @@
-// server.js
-// load the things we need
 var express = require('express');
+var request = require("request")
+
 var app = express();
 
 // set the view engine to ejs
@@ -20,13 +20,35 @@ app.get('/sample', function (req, res) {
 });
 
 app.get('/suggestions', function (req, res) {
-    res.json({"suggestions": ["comida 1", "comida 2", "comida 3"]});
+    
+    calories = req.query.calories;
+    cholesterol = req.query.cholesterol;
+    carbohydrates = req.query.carbohydrates;
+    fat = req.query.fat;
+    fiber = req.query.fiber;
+    proteins = req.query.proteins;
+    
+    var suggestions_url = "http://127.0.0.1:5002";
+
+    request({
+        method: 'POST',
+        url: suggestions_url,
+        json: true,
+        form: {"calories" : calories,
+               "cholesterol" : cholesterol,
+               "carbohydrates":carbohydrates,
+               "fat" : fat,
+               "fiber": fiber,
+               "proteins": proteins}
+    }, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            console.log(body); // Print the json response
+            res.json(body);
+        }
+    });
+
 });
              
-// about page 
-// app.get('/about', function(req, res) {
-//     res.render('pages/about');
-// });
 
 app.listen(8080);
 console.log('8080 is the magic port');

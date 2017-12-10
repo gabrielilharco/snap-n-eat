@@ -33,7 +33,7 @@ app = Flask(__name__)
 
 @app.route("/",  methods=['POST'])
 def similar_foods():
-    product_name = request.form.get('product_name')
+    # product_name = request.form.get('product_name')
     calories = float(request.form.get('calories'))
     cholesterol = float(request.form.get('cholesterol'))
     carbohydrates = float(request.form.get('carbohydrates'))
@@ -42,6 +42,8 @@ def similar_foods():
     proteins = float(request.form.get('proteins'))
     
     # TODO Check if any parameter is None
+    print(calories);
+    print(carbohydrates);
     
     distances, indices = knn.kneighbors([[NUT_DAILY_VALUES["calories"] - calories,
                                           NUT_DAILY_VALUES["carbohydrates"] - carbohydrates,

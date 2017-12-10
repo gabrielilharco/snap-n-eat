@@ -13,9 +13,29 @@ function getTemplates() {
 } 
 
 function getSuggestions() {
-    $.get('/suggestions', function (data) {
-        console.log(data);
-        var html = templates.suggestionsList({'suggestionsList': data["suggestions"]});
-        $('#suggestions-list').append(html);
+    var database = firebase.database();
+
+    // Read from firebase
+    database.ref('/user/').on('value', function(childSnapshot, prevChildName) {
+        calories = parseFloat(childSnapshot.child('calories').val());
+        carbohydrates = parseFloat(childSnapshot.child('carbohydrates').val());
+        proteins = parseFloat(childSnapshot.child('proteins').val());
+        fat = parseFloat(childSnapshot.child('fat').val());
+        fiber = parseFloat(childSnapshot.child('fiber').val());
+        cholesterol = parseFloat(childSnapshot.child('cholesterol').val());
+      
+        
+        var propertiesObject = { calories:calories,
+                                carbohydrates:carbohydrates,
+                                proteins: proteins,
+                                fat: fat,
+                                fiber: fiber,
+                                cholesterol: cholesterol};
+        
+        $.get('/suggestions', propertiesObject, function (data) {
+            console.log(data);
+            var html = templates.suggestionsList({'suggestionsList': data["recommended"]});
+            $('#suggestions-list').append(html);
+        });
     });
 }

@@ -58,6 +58,19 @@
     }
     </style>
     
+      <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>    
+      <script>
+          // Initialize Firebase
+          var config = {
+              apiKey: "AIzaSyCXnXw9gPWVo4H7EG-uZHbJhsIdfrpef3g",
+              authDomain: "deep139-6de37.firebaseapp.com",
+              databaseURL: "https://deep139-6de37.firebaseio.com",
+              projectId: "deep139-6de37",
+              storageBucket: "deep139-6de37.appspot.com",
+              messagingSenderId: "16846359714"
+          };
+          firebase.initializeApp(config);
+      </script>
     <script src="public/js/ejs.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -168,10 +181,23 @@
               }
             }
           </style>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-            <i class="material-icons">add</i>
+          <button id="t_button" type="submit" class="mdl-button mdl-js-buttons mdl-button--fab mdl-button--colored mdl-js-ripple-effect">
+              <i class="material-icons" style="z-index: 1;">add</i>
           </button>
+         <div style="opacity: 0; filter:alpha(opacity=0);" class="mdl-button mdl-js-buttons mdl-button--fab mdl-button--colored mdl-js-ripple-effect">
+            <form style="opacity: 0; filter:alpha(opacity=0);" id="submit-form" enctype="multipart/form-data" action="http://ec2-54-196-151-65.compute-1.amazonaws.com:5000" method="post">
+               <input style="height: 50px; opacity: 0; filter:alpha(opacity=0);" form="t_button" type="file" name="file" accept="image/*" id="file">
+            </form>
+          </div>
+     <script>
+      fileInput = document.getElementById('file');
 
+      fileInput.addEventListener('change', function(e) {
+        form = document.getElementById('submit-form');
+        console.log(form);
+        form.submit();
+      });
+    </script>
         </div>
       </main>      
     </div>
