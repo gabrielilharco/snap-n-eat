@@ -1,3 +1,4 @@
+tmp/*
 data/*
 src/webapp/node_modules/*
 
