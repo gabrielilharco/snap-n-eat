@@ -9,10 +9,10 @@ function barPlot(data) {
             table.addColumn('number', 'UL Peak');
             table.addColumn('number', 'UL Off-peak');
 
-            table.addRow(['Carboidrato', 100 * data["carbohydrates"] / 2000, 100*(1 - data["carbohydrates"] / 2000)]);
-            table.addRow(['Gordura', 100 * data["fat"] / 2000, 100*(1 - data["fat"] / 2000)]);
-            table.addRow(['Proteína', 100 * data["proteins"] / 2000, 100*(1 - data["proteins"] / 2000)]);
-            table.addRow(['Colesterol', 100 * data["calories"] / 2000, 100*(1 - data["calories"] / 2000)]);
+            table.addRow(['Carboidrato', 100 * data["carbohydrates"] / 300, 100*(1 - data["carbohydrates"] / 300)]);
+            table.addRow(['Gordura', 100 * data["fat"] / 65, 100*(1 - data["fat"] / 65)]);
+            table.addRow(['Proteína', 100 * data["proteins"] / 50, 100*(1 - data["proteins"] / 50)]);
+            table.addRow(['Colesterol', 100 * data["cholesterol"] / 0.003, 100*(1 - data["cholesterol"] / 0.003)]);
             var chart = new google.charts.Bar(this);
             var options = google.charts.Bar.convertOptions({
                 series: {
