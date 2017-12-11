@@ -12,7 +12,7 @@ Snap & Eat is a web application that tracks the user's food intake by pictures. 
 
 ## Our model
 
-We use an [Aggregated Residual Convolutional Neural Network](https://arxiv.org/abs/1611.05431) - ResNeXt-101 with 101 layers, pretrained on [ImageNet](http://www.image-net.org/) dataset. We finetune the model on [Food-101 dataset](https://www.vision.ee.ethz.ch/datasets_extra/food-101/), and achieve a significant improvement on accuracy (71% in our work compared to [Bossard et al., 2014](http://www.vision.ee.ethz.ch/~lbossard/bossard_eccv14_food-101.pdf)).
+We use an [Aggregated Residual Convolutional Neural Network](https://arxiv.org/abs/1611.05431) - ResNeXt-101 with 101 layers, pretrained on [ImageNet](http://www.image-net.org/) dataset. We finetune the model on [Food-101 dataset](https://www.vision.ee.ethz.ch/datasets_extra/food-101/), with more than 100 thousand images of 101 types of dishes. We achieve a significant improvement on accuracy (71% in our work compared to [Bossard et al., 2014](http://www.vision.ee.ethz.ch/~lbossard/bossard_eccv14_food-101.pdf)).
 
 For recomending new dishes, we use minimum ditance in an n-dimensional space of nutritional information that describe each dish.
 
