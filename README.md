@@ -16,6 +16,10 @@ We use an [Aggregated Residual Convolutional Neural Network](https://arxiv.org/a
 
 For recomending new dishes, we use minimum ditance in an n-dimensional space of nutritional information that describe each dish.
 
+## Implementation
+
+The system is implemented in Pytorch using [fastai lib](https://github.com/fastai/fastai), relying on Jupyter Notebooks for prototyping purposes. For the web app, we use Flask and Node.js.
+
 ## Instalation and usage
 
 Dependencies:
