@@ -4,7 +4,7 @@ data/.ipynb_checkpoints/*
 data/food-101/*
 src/webapp/node_modules/*
 src/webapp/submit-image/*
-src/webpap/uploads/*
+src/webapp/uploads/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -15,7 +15,7 @@ UPLOAD_FOLDER = '../../data/food-101/test/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 # Model stuff
-PATH = "/home/ubuntu/dl_hackathon/data/food-101/"
+PATH = "../../data/food-101/"
 sz=224
 arch=resnext101
 
