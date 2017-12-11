@@ -7,6 +7,8 @@ Snap & Eat is a web application that tracks the user's food intake by pictures. 
 
 The app also suggests meals based on the user's income, and is capable of showing places nearby that serve those dishes.
 
+The system is implemented in Pytorch using [fastai lib](https://github.com/fastai/fastai), relying on Jupyter Notebooks for prototyping purposes. For the web app, we use Flask and Node.js.
+
 ## Demo
 
 ![test](data/readme-imgs/app_homescreen.jpg) 
@@ -20,10 +22,6 @@ We use an [Aggregated Residual Convolutional Neural Network](https://arxiv.org/a
 
 For recomending new dishes, we use minimum ditance in an n-dimensional space of nutritional information that describe each dish.
 
-## Implementation
-
-The system is implemented in Pytorch using [fastai lib](https://github.com/fastai/fastai), relying on Jupyter Notebooks for prototyping purposes. For the web app, we use Flask and Node.js.
-
 ## Instalation and usage
 
 Dependencies:
@@ -32,7 +30,7 @@ Dependencies:
 - Flask
 - Node.js
 
-# About the idea
+## About the idea
 
 According to the [World Health Organization](http://www.who.int/en/), worldwide obesity has nearly tripled since 1975. In the United States, almost 75% of the population is overweight and more than half of the population is obese ([OECD](http://www.oecd.org/)). Today, many diseases that were preivously thought as hereditary are now shown to be seen conected to biological disfunction related to nutrition.
 
