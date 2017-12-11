@@ -24,8 +24,8 @@ NUT_NAMES_MAP = {
     "proteins": "proteins_100g"
 }
 
-MODELS_PATH = "/home/ubuntu/dl_hackathon/data/food-101/models/"
-data_file = "/home/ubuntu/dl_hackathon/data/nutrition_values.csv"
+MODELS_PATH = "../../data/food-101/models/"
+data_file = "../../data/nutrition_values.csv"
 
 nutrition_df = pd.read_csv(MODELS_PATH + "../../nutrition_values.csv", header=0)
 

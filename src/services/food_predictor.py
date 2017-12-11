@@ -11,7 +11,7 @@ from fastai.plots import *
 import glob
 import imghdr
 
-UPLOAD_FOLDER = '/home/ubuntu/dl_hackathon/data/food-101/test/'
+UPLOAD_FOLDER = '../../data/food-101/test/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 # Model stuff

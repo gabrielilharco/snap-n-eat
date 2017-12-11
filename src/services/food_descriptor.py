@@ -2,7 +2,7 @@ from utils import nice_json
 from flask import Flask, request
 import pandas
 
-csv_path = '/home/ubuntu/dl_hackathon/data/nutrition_values.csv'
+csv_path = '../../data/nutrition_values.csv'
 df = pandas.read_csv(csv_path)
 
 products = df['product_name'].unique()
