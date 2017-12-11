@@ -58,7 +58,7 @@ function donutPlot(calories) {
           legend: 'none',
           colors: ['#FFD0E0', '#EE407B'],
           pieSliceText: 'none',
-          title: 'Calories consumption',
+          title: 'Daily Calorie Consumption',
           titleTextStyle: {
               color: '#666666',
               fontName: "'Roboto'",
