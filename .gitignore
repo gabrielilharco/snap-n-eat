@@ -3,6 +3,8 @@ data/en.openfoodfacts.org.products.tsv
 data/.ipynb_checkpoints/*
 data/food-101/*
 src/webapp/node_modules/*
+src/webapp/submit-image/*
+src/webpap/uploads/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
