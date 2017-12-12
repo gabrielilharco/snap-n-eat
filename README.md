@@ -36,12 +36,23 @@ We provide a ready-to-go AMI of a p2 instance on AWS with all libraries and depe
 
 To launch an instance based on an AMI, see the [AWS Reference](https://aws.amazon.com/premiumsupport/knowledge-center/launch-instance-custom-ami/). Don't forget to git pull to get the the latest version of the code!
  
+To run all the services, the following four comands need to be run in the AWS instance. We recommend using [tmux](https://github.com/tmux/tmux/wiki) to organize the terminals.
 
-Dependencies:
+```
+python /home/ubuntu/snapandeat/src/services/food_predictor.py
+```
 
-- [fastai lib](https://github.com/fastai/fastai)
-- Flask
-- Node.js
+```
+python /home/ubuntu/snapandeat/src/services/food_descriptor.py
+```
+
+```
+python /home/ubuntu/snapandeat/src/services/top_food.py
+```
+
+```
+node /home/ubuntu/snapandeat/src/webapp/server.js
+```
 
 ## About the idea
 
