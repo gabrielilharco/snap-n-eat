@@ -22,7 +22,7 @@ We use an [Aggregated Residual Convolutional Neural Network](https://arxiv.org/a
 
 For recomending new dishes, we use minimum ditance in an n-dimensional space of nutritional information that describe each dish.
 
-## Instalation and usage
+## Installation and usage
 
 ### AWS AMI (Amazon Machine Images)
 
@@ -35,23 +35,28 @@ We provide a ready-to-go AMI of a p2 instance on AWS with all libraries and depe
 ||||
 
 To launch an instance based on an AMI, see the [AWS Reference](https://aws.amazon.com/premiumsupport/knowledge-center/launch-instance-custom-ami/). Don't forget to git pull to get the the latest version of the code!
+
+```sh
+cd snapandeat
+git pull origin master
+```
  
-To run all the services, the following four comands need to be run in the AWS instance. We recommend using [tmux](https://github.com/tmux/tmux/wiki) to organize the terminals.
+To run all the services, the following four comands need to be run in the AWS instance, once in the ```snapandeat``` directory. We recommend using [tmux](https://github.com/tmux/tmux/wiki) to organize the terminals.
 
-```
-python /home/ubuntu/snapandeat/src/services/food_predictor.py
-```
-
-```
-python /home/ubuntu/snapandeat/src/services/food_descriptor.py
+```sh
+python src/services/food_predictor.py
 ```
 
-```
-python /home/ubuntu/snapandeat/src/services/top_food.py
+```sh
+python src/services/food_descriptor.py
 ```
 
+```sh
+python src/services/top_food.py
 ```
-node /home/ubuntu/snapandeat/src/webapp/server.js
+
+```sh
+node src/webapp/server.js
 ```
 
 ## About the idea
