@@ -63,7 +63,7 @@ To view and edit the Jupyter Notebooks, execute:
 
 ```sh
 cd /home/ubuntu/snapandeat/src/notebooks
-node src/webapp/server.js
+jupyter-notebook --no-browser --ip='*'
 ```
 
 The default password for the notebooks is ```snapneat```. Don't forget to change it!
