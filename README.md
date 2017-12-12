@@ -59,6 +59,15 @@ python src/services/top_food.py
 node src/webapp/server.js
 ```
 
+To view and edit the Jupyter Notebooks, execute:
+
+```sh
+cd /home/ubuntu/snapandeat/src/notebooks
+node src/webapp/server.js
+```
+
+The default password for the notebooks is ```snapneat```. Don't forget to change it!
+
 ## About the idea
 
 According to the [World Health Organization](http://www.who.int/en/), worldwide obesity has nearly tripled since 1975. In the United States, almost 75% of the population is overweight and more than half of the population is obese ([OECD](http://www.oecd.org/)). Today, many diseases that were preivously thought as hereditary are now shown to be seen conected to biological disfunction related to nutrition.
