@@ -24,6 +24,19 @@ For recomending new dishes, we use minimum ditance in an n-dimensional space of 
 
 ## Instalation and usage
 
+### AWS AMI (Amazon Machine Images)
+
+We provide a ready-to-go AMI of a p2 instance on AWS with all libraries and dependencies installed. 
+
+| | | |
+|-|-|-|
+|__AMI ID__| ami-99442ee3 |
+|__AMI Name__| snap-n-eat-ami |
+||||
+
+To launch an instance based on an AMI, see the [AWS Reference](https://aws.amazon.com/premiumsupport/knowledge-center/launch-instance-custom-ami/). Don't forget to git pull to get the the latest version of the code!
+ 
+
 Dependencies:
 
 - [fastai lib](https://github.com/fastai/fastai)
