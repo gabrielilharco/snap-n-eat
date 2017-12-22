@@ -11,8 +11,9 @@ The system is implemented in Pytorch using [fastai lib](https://github.com/fasta
 
 ## Demo
 
-![test](data/readme-imgs/app_homescreen.jpg) 
-![test](data/readme-imgs/food_prediction.jpg)  
+![test](data/readme-imgs/app_homescreen.jpg)
+![Alt Text](gif/snap_n_eat.gif)  
+[//]: # (![test](data/readme-imgs/food_prediction.jpg)) 
 
 ## Our model
 
