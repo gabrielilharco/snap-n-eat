@@ -12,7 +12,7 @@ The system is implemented in Pytorch using [fastai lib](https://github.com/fasta
 ## Demo
 
 ![test](data/readme-imgs/app_homescreen.jpg)
-![Alt Text](gif/snap_n_eat.gif)
+![Alt Text](data/readme-imgs/snap_n_eat.gif)
 
 ## Our model
 
