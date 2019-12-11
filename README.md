@@ -20,7 +20,7 @@ We use an [Aggregated Residual Convolutional Neural Network](https://arxiv.org/a
 
 ![test](data/readme-imgs/food101dataset.png) 
 
-For recomending new dishes, we use minimum ditance in an n-dimensional space of nutritional information that describe each dish.
+For recomending new dishes, we use minimum distance in an n-dimensional space of nutritional information that describes each dish.
 
 ## Installation and usage
 
